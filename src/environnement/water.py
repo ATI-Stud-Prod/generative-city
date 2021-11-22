@@ -56,7 +56,7 @@ class Env:
                 cmds.setAttr(item+".scaleZ", 0)
 
 
-    def water(self="oceanWater"):
+    def water(self=" "):
         object = cmds.polyPlane(height=10, width=10)
         print(object)
         O_shader = cmds.shadingNode('oceanShader', asShader=True)

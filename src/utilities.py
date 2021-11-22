@@ -11,10 +11,16 @@ colorScheme = {
     'green': [0, 255, 0]
 }
 
-
 class Shader:
+    object = cmds.polyPlane()
+
     def __init__(self, node_t):
         self.NodeType=node_t
+        
+        
+    def test(self="a"):
+        print(Shader.myobject)
+        
 
     def __create_shader(self, naming, node_type):
         node_type = self.NodeType
@@ -27,4 +33,6 @@ class Shader:
         meshes = cmds.ls(selection=True, dag=True, type="mesh", noIntermediate=True)
         material, sgrp = self.__create_shader("siege_MTL", self.NodeType)
         cmds.setAttr(material + ".color", shader_colors[key_color][0], shader_colors[key_color][1], shader_colors[key_color][2], type='double3')
-        cmds.sets(meshes, forceElement=sgrp)
+        cmds.sets(Shader.object[0], forceElement=sgrp)
+        
+Shader.object
