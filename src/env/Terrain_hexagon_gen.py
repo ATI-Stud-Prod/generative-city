@@ -20,8 +20,9 @@ for x in range (0,arrayX,1) :
         cpcurve = cpcurve+arrayX
 
 #creation du displacement
-rpas = random.randint(1,5)
+
 for dis in range (0,arrayZ*arrayX,rpas) :
+    rpas = random.randint(1,5)
     for a in range (0,2,1) :
         fY = random.randint(min,max)
         cmds.select("curve"+str(dis+1)+".cv["+str(a)+"]")
@@ -38,7 +39,6 @@ for nb in range (0,arrayZ*arrayX,1) :
         posY = posV[1]
         posZ = posV[2]
         cmds.polyCylinder(sx=6)
-        print "pCylinder"+str((c+1)+((nb)*2))
         #bevel des edges du dessus
         cmds.polyBevel("pCylinder"+str((c+1)+((nb)*2))+".e[7]","pCylinder"+str((c+1)+((nb)*2))+".e[8]","pCylinder"+str((c+1)+((nb)*2))+".e[9]","pCylinder"+str((c+1)+((nb)*2))+".e[10]","pCylinder"+str((c+1)+((nb)*2))+".e[11]","pCylinder"+str((c+1)+((nb)*2))+".e[6]",offset=0.1)
         cmds.scale(1.15,1.15,1.15)
