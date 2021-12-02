@@ -25,7 +25,7 @@ class UI:
     def get_f_SliderGrp(self, *argv, **kwargv):
         return cmds.floatSliderGrp(q=True, value=True, *argv, **kwargv)
 
-
+    def make_i_SliderGrp(self, *argv, **kwargv):
         return cmds.intSliderGrp(f=True, *argv, **kwargv)
 
     def set_i_SliderGrp(self, *argv, **kwargv):
@@ -53,9 +53,8 @@ class UI:
     def get_Checkbox(self, *argv):
         return cmds.checkBox(*argv, q=True, v=True)
 
-
     def make_separator(self, ht, st):
         cmds.separator(height = ht, style=st)
 
-#ui = UI('interface',300, 200)
-#ui.make_btn(label='buton')
+ui = UI('interface',300, 200)
+ui.make_btn(label='buton')
