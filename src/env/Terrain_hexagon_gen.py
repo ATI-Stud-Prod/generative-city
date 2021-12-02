@@ -31,23 +31,23 @@ for dis in range (0,arrayZ*arrayX,rpas) :
         
 #creation des shaders
 myShader1 = cmds.shadingNode('blinn', asShader=True)
-cmds.setAttr('blinn1.colorR',1)
-cmds.setAttr('blinn1.colorG',0)
+cmds.setAttr('blinn1.colorR',0.05)
+cmds.setAttr('blinn1.colorG',0.6)
 cmds.setAttr('blinn1.colorB',0)
 cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='blinn1SG')
 cmds.connectAttr('blinn1.outColor','blinn1SG.surfaceShader')
 
 myShader2 = cmds.shadingNode('blinn', asShader=True)
 cmds.setAttr('blinn2.colorR',0)
-cmds.setAttr('blinn2.colorG',1)
+cmds.setAttr('blinn2.colorG',0.6)
 cmds.setAttr('blinn2.colorB',0)
 cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='blinn1SG')
 cmds.connectAttr('blinn2.outColor','blinn1SG1.surfaceShader')
 
 myShader3 = cmds.shadingNode('blinn', asShader=True)
 cmds.setAttr('blinn3.colorR',0)
-cmds.setAttr('blinn3.colorG',0)
-cmds.setAttr('blinn3.colorB',1)
+cmds.setAttr('blinn3.colorG',0.6)
+cmds.setAttr('blinn3.colorB',0.05)
 cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='blinn1SG')
 cmds.connectAttr('blinn3.outColor','blinn1SG2.surfaceShader')
 
@@ -69,7 +69,7 @@ for nb in range (0,arrayZ*arrayX,1) :
         posY = posV[1]
         posZ = posV[2]
         cmds.polyCylinder(sx=6)
-        #assigne des shaders random
+        #assignement des shaders random
         my_list = [(blcolor1),(blcolor2),(blcolor3)]
         my_samp = 1
         numColor = random.sample(my_list,my_samp)
