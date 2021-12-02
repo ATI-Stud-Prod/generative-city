@@ -24,7 +24,8 @@ def moveXYZ(slider, *arg, **kwargs):
     cmds.select()
     cmds.move(value,*arg, **kwargs)
 
-
+def Pre():
+    print("test")
 class Env:
     def __init__(self,water, sizeX, sizeY):
         self.water = water
