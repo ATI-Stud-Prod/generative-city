@@ -3,7 +3,7 @@ import random as random
 cmds.file(f=True, new=True)
 
 arrayZ = 10
-arrayX = 5
+arrayX = 10
 cpcurve = 0
 min = 0
 max = 1
@@ -22,16 +22,21 @@ for dis in range (0,arrayZ*arrayX,rpas) :
     for a in range (0,2,1) :
         fY = random.randint(min,max)
         cmds.select("curve"+str(dis+1)+".cv["+str(a)+"]")
+        cmds.softSelect(sse=True)
         cmds.move(0,fY,0, relative=True)
+        """cmds.softSelect(sse=False)"""
 
 
 for nb in range (0,arrayZ*arrayX,1) :
+    cmds.softSelect(sse=False)
     for c in range (0,2,1) :
         posV = cmds.xform("curve"+str(nb+1)+".cv["+str(c)+"]", ws = True, q=True,t=True)
         posX = posV[0]
         posY = posV[1]
         posZ = posV[2]
         cmds.polyCylinder(sx=6)
+        print "pCylinder"+str((c+1)+((nb)*2))
+        cmds.polyBevel("pCylinder"+str((c+1)+((nb)*2))+".e[7]","pCylinder"+str((c+1)+((nb)*2))+".e[8]","pCylinder"+str((c+1)+((nb)*2))+".e[9]","pCylinder"+str((c+1)+((nb)*2))+".e[10]","pCylinder"+str((c+1)+((nb)*2))+".e[11]","pCylinder"+str((c+1)+((nb)*2))+".e[6]",offset=0.1)
         cmds.scale(1.15,1.15,1.15)
         cmds.move(posX,posY,posZ)
 cmds.select( all=True )
