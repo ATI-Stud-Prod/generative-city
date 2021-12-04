@@ -101,7 +101,7 @@ def cblue3() :
 def bluecolor() :
     my_list = [(cblue1),(cblue2),(cblue3)]
     my_samp2 = 1
-    numColor2 = random.sample(my_list,my_samp)
+    numColor2 = random.sample(my_list,my_samp2)
     numColor2[0]()
     
 #beige
@@ -114,7 +114,7 @@ def cbeige3() :
 def beigecolor() :
     my_list = [(cbeige1),(cbeige2),(cbeige3)]
     my_samp3 = 1
-    numColor3 = random.sample(my_list,my_samp)
+    numColor3 = random.sample(my_list,my_samp3)
     numColor3[0]()
 
 #creation des lignes 
