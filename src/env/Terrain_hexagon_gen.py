@@ -129,7 +129,8 @@ for x in range (0,arrayX,1) :
 
 #creation du displacement
 rpas = random.randint(1,5)
-for dis in range (0,arrayZ*arrayX,rpas) :    
+for dis in range (0,arrayZ*arrayX,rpas) :  
+    rpas = random.randint(1,5) 
     for a in range (0,2,1) :
         fY = random.randint(min,max)
         cmds.select("curve"+str(dis+1)+".cv["+str(a)+"]")
@@ -154,7 +155,6 @@ for nb in range (0,arrayZ*arrayX,1) :
 for cl in range (0,arrayZ*arrayX*2,1): 
     Hface = cmds.xform("pCylinder"+str(cl+1)+".f[13]",ws=True, q=True,t=True)
     HfaceY = Hface[1]
-    print HfaceY
     cmds.select("pCylinder"+str(cl+1))
     beigecolor()
     if (HfaceY <= 2) :
