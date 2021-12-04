@@ -1,7 +1,6 @@
 import maya.cmds as cmds
 import random as random
 cmds.file(f=True, new=True)
-cpcurve = 0
 
 #valeur à changer et mettre dans une fenetre
 arrayZ = 20 #nombre sur l'axe des z
@@ -131,7 +130,8 @@ for x in range (0,arrayX,1) :
 rpas = random.randint(1,5)
 for dis in range (0,arrayZ*arrayX,rpas) :  
     rpas = random.randint(1,5) 
-    for a in range (0,2,1) :
+    rpas2 = random.randint(1,2)
+    for a in range (0,2,rpas2) :
         fY = random.randint(min,max)
         cmds.select("curve"+str(dis+1)+".cv["+str(a)+"]")
         cmds.softSelect(sse=True)
