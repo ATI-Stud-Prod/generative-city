@@ -24,11 +24,11 @@ importMayaScript("element")
 from water import water
 from Terrain_hexagon_gen import terrain
 
-"""-----------Ne pas toucher les imports ----------------"""
+"""-----------Ne pas toucher les imports ----------"""
 
 cmds.file(f=True, new=True)
 
 
-terrain()
-water()
-
+if __name__ == '__main__':
+    terrain()
+    water()
