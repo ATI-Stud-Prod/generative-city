@@ -1,6 +1,8 @@
 import maya.cmds as cmds
 import random as random
+
 #valeur changer et mettre dans une fenetre
+
 arrayZ = 20 #nombre sur l'axe des z
 arrayX = 20 #nombre sur l'axe des x
 min = 0 #minumim du displacement

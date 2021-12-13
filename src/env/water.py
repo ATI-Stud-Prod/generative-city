@@ -19,6 +19,3 @@ def water():
     
         cmds.sets(edit=True, forceElement=O_shader+'SG')
         cmds.setAttr(O_shader+'.scale',5)
-        
-        
-
