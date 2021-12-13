@@ -34,3 +34,8 @@ cmds.file(f=True, new=True)
 terrain()
 water()
 
+
+if __name__ == '__main__':
+    terrain()
+    water()
+
