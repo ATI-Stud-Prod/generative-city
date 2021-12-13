@@ -13,7 +13,7 @@ def water():
         O_shader2 = cmds.shadingNode('blinn', asRendering=True)
         cmds.connectAttr(O_shader + '.outColor', O_shader2 + '.transparency')
 
-        # Régler la couleur du shader
+        # Regler la couleur du shader
         print(O_shader)
         cmds.select(str(object[0]))
     

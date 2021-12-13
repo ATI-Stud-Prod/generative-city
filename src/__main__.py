@@ -7,7 +7,7 @@ def importMayaScript(nameFolder):
     setScriptDir = myScriptDir+'generative-city/src/'+str(nameFolder)+'/'
     
     #if(sys.path == "/generative-city/src/env/"):
-    
+    """
     pathExist = False;
     for i in range(len(sys.path)-1):
         
@@ -17,7 +17,9 @@ def importMayaScript(nameFolder):
     if(pathExist == True):
         print("test")
         sys.path.append(setScriptDir)
-
+    """
+    sys.path.append(setScriptDir)
+    
 importMayaScript("env")      
 importMayaScript("element")      
 
