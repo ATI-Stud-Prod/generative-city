@@ -12,7 +12,7 @@ def Scene():
     
 
 
-# A-Création d'un shader et application du shader de base
+# A-CrÃ©ation d'un shader et application du shader de base
 
 def shaderRoute():
     
@@ -47,5 +47,3 @@ for p in range(r):
     posX = p
     posZ = 0
     cmds.move(posX,posZ,xz=True)
-    
-
