@@ -1,6 +1,17 @@
 import maya.cmds as cmds
+import sys 
 
 cmds.file(f=True, new=True)
+
+def importMayaScript(nameFolder):
+
+    myScriptDir = cmds.internalVar(userScriptDir=True)
+    setScriptDir = myScriptDir+'generative-city/src/'+str(nameFolder)+'/'
+
+    sys.path.append(setScriptDir)
+    
+importMayaScript("element")      
+from uinterface import UI
 
 
 
@@ -105,5 +116,13 @@ class Element:
         cmds.select(mesh[0])
 
 if __name__ == '__main__':
+    
+    """---INTERFACE---"""
+    
+    ui = UI('interface',300, 200)
+    ui.make_btn(label='buton')
+    ui.make_i_SliderGrp()
+    
+    """---Build---"""
     init = Element(3,5,5)
     init.building(12)
