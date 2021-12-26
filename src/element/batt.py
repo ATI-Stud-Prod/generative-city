@@ -42,21 +42,17 @@ class Element:
         self.hauteur = hauteur
         self.largeur = largeur
         self.buildingType = buildingType
-        self.sub = sub
-        
-        self.typeTexture = typeTexture
-        
         self.translateZ = translateZ 
+        self.sub = sub
+        self.typeTexture = typeTexture
 
 
-    def structureMesh(self,PosX, PosY, PosZ, Rotation=0 , wallSubX=0,wallSubY=0 ):
+    def structureMesh(self,PosX, PosY, PosZ, Rotation=0 , wallSubX=0, wallSubY=0 ):
         mesh = cmds.polyCylinder(name="baseMesh", sx=self.sub,sy=1, sz=1, h=self.hauteur,radius=self.largeur)
         if (self.sub == 4 ):
             cmds.delete(mesh[0]+'.f[8:10]')
             cmds.delete(mesh[0]+'.f[4:8]')
             cmds.polyCloseBorder(ch=True)
-            
-            
             cmds.delete(mesh[0]+'.f[0:'+str((self.sub*2)-1)+']')
             cmds.select(mesh[0])
             cmds.move(0,-self.hauteur*.5,0, moveXZ=False)
@@ -73,6 +69,7 @@ class Element:
         cmds.rotate(0,''+str(Rotation)+'deg',0)
         cmds.polySubdivideFacet(dv=wallSubX)
         cmds.select(mesh[0]+'.f[0:*]')
+        
         cmds.polyExtrudeFacet(kft=True, ltz=self.hauteur, divisions=wallSubY)
         cmds.delete(mesh[0], constructionHistory = True)
         cmds.makeIdentity(apply=True, t=1, r=1, s=1, n=0)
@@ -81,9 +78,18 @@ class Element:
         lastVertex = MeshValue['vertex'] -1
         lastEdge = MeshValue['edge'] -1
         lastFace = MeshValue['face'] -1
-           
-        selectTopFace = mesh[0]+'.f['+str(lastFace-self.sub+1)+':'+str(lastFace)+']'
-        DataMesh = {"meshName":mesh[0], "lastVertex":lastVertex, "lastEdge":lastEdge, "lastEdge": lastFace, "selectTopFace" : selectTopFace}
+        
+        print(str(lastFace)+" face -1")
+        print(str(lastVertex)+" vertex -1")
+        """----  Param selection -----"""
+        selectTopFace = mesh[0]+'.f['+str(0)+':'+str((self.sub) -1 )+']'
+        selectSideFace = mesh[0]+'.f['+str(lastFace-self.sub+1)+':'+str(lastFace)+']'
+        selectDownFace = mesh[0]+'.f['+str(self.sub)+':'+str(lastFace-self.sub)+']'
+        """----  Param selection -----"""
+
+        cmds.select(cl=True)
+        cmds.select(selectSideFace)
+        DataMesh = {"meshName":mesh[0], "selectTopFace" :selectTopFace,"selectSideFace" : selectSideFace, "selectDownFace": selectDownFace}
         
         return(DataMesh)
 
@@ -98,13 +104,11 @@ class Element:
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=division, off=offset, kft=keepFacesTogether)
     
     def floor(self):
-        print("start create floor")
-
         mesh = self.structureMesh(1,1,1)
         if (self.buildingType == "elongated"):
-            cmds.select(selectTopFace)
+            cmds.select(mesh["selectTopFace"])
             self.elongated(3,1.5, True)
-            cmds.polyBevel()
+            #cmds.polyBevel()
             #cmds.polyExtrudeFacet(kft=False, ltz=2)
             #cmds.select(mesh[0]+'.f['+str(lastFace)+']', tgl=True)
         else:
@@ -130,9 +134,9 @@ if __name__ == '__main__':
     ui.make_i_SliderGrp()
     """
     """---Build---"""
-    init = Element(3,5,4, "basic")
-    init.building(10)
-    #init.structureMesh(0,0,0)
+    init = Element(1,2,8,"elongated")
+    #init.building(20)
+    init.structureMesh(0,0,0,0,0,0)
     #init.Test()
 
     
