@@ -111,7 +111,9 @@ class Element:
             #cmds.polyBevel()
             #cmds.polyExtrudeFacet(kft=False, ltz=2)
             #cmds.select(mesh[0]+'.f['+str(lastFace)+']', tgl=True)
+        
         else:
+            cmds.select(mesh["selectTopFace"])
             cmds.polyBevel()
         
         """ A activer"""
@@ -134,9 +136,9 @@ if __name__ == '__main__':
     ui.make_i_SliderGrp()
     """
     """---Build---"""
-    init = Element(1,2,8,"elongated")
-    #init.building(20)
-    init.structureMesh(0,0,0,0,0,0)
+    init = Element(5,3,3,"basic")
+    #init.building(5)
+    init.structureMesh(0,0,0,0,2,4)
     #init.Test()
 
     
