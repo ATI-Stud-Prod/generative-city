@@ -27,9 +27,8 @@ class ManageImport:
         self.referenceName = cmds.referenceQuery(self.path, filename = True)
 
         
-    def changeReference(self, nameReference=""):
-        cmds.file( self.path, unloadReference=nameReference)
-        openMayaFile()
+    def deleteReference(self, nameReference=""):
+        cmds.file( self.path, removeReference=True)
     
     def ManageObj(self,_pos=[0,0,0], _scale=[1,1,1], _rotation=["0deg","0deg","0deg"]):
         obj = self.SelectedObj
@@ -44,9 +43,10 @@ if __name__ == '__main__':
     bilelBat = ManageImport("batiment_CyberPunk_uv.mb")
     bilelBat.openMayaFile()
     bilelBat.ManageObj([0,0,0],[.5,.5,.5], [45,0,0])
-    
     """ Si vous voulez changer après coup la reference vous pouvez spécifier un autre fichier """
     # bilelBat.openMayaFile("batiment_CyberPunk_avant_combine.mb")
+    """ Si vous voulez delete """
+    # bilelBat.deleteReference()
 
 """------------- Texture part ---------------"""
 
