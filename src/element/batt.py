@@ -50,8 +50,17 @@ class Element:
             nbrFace = self.sub
             if (wallSubX != 0):
                 nbrFace = (self.sub)*4**(wallSubX-1)
-                
+            print("nbr :"+str(nbrFace))
+
             return(nbrFace)
+            
+    def selectTopFace(self, wallSubX):
+        nbrFace = self.sub
+        if (wallSubX != 0):
+            nbrFace = (self.sub*self.sub)*4**(wallSubX-1)
+        print("nbr :"+str(nbrFace))
+
+        return(nbrFace)
 
     def structureMesh(self,PosX, PosY, PosZ, Rotation=0 , wallSubX=0, wallSubY=0 ):
         mesh = cmds.polyCylinder(name="baseMesh", sx=self.sub,sy=1, sz=1, h=self.hauteur,radius=self.largeur)
@@ -84,22 +93,20 @@ class Element:
         lastVertex = MeshValue['vertex'] -1
         lastEdge = MeshValue['edge'] -1
         lastFace = MeshValue['face'] -1
-        
         print(str(lastFace)+" face -1")
         print(str(lastVertex)+" vertex -1")
-        
         print(self.selectSideFace(wallSubX))
-        
-        """----  Param selection -----"""
-        selectTopFace = mesh[0]+'.f['+str(0)+':'+str(((self.sub*wallSubX)**2) -1 )+']'
-        selectSideFace = mesh[0]+'.f['+str((lastFace-self.selectSideFace(wallSubX)+1))+':'+str(lastFace)+']'
-        selectDownFace = mesh[0]+'.f['+str(self.sub)+':'+str(lastFace-self.sub)+']'
-        """----  Param selection -----"""
 
-        cmds.select(cl=True)
-        cmds.select(selectSideFace )
-        DataMesh = {"meshName":mesh[0], "selectTopFace" :selectTopFace,"selectSideFace" : selectSideFace, "selectDownFace": selectDownFace}
+        """----  Param selection -----"""
         
+        selectTopFace = mesh[0]+'.f['+str(0)+':'+str(self.selectTopFace(wallSubX) -1 )+']'
+        selectSideFace = mesh[0]+'.f['+str(((lastFace-self.selectSideFace(wallSubX))+1))+':'+str(lastFace)+']'
+
+        """----  Param selection -----"""
+        cmds.select(cl=True)
+        cmds.select(selectTopFace )
+        DataMesh = {"meshName":mesh[0], "selectTopFace" :selectTopFace,"selectSideFace" : selectSideFace}
+        print(DataMesh)
         return(DataMesh)
 
     def building(self, nbEtage):
@@ -116,7 +123,7 @@ class Element:
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=division, off=offset, kft=keepFacesTogether)
     
     def floor(self):
-        mesh = self.structureMesh(1,1,1)
+        mesh = self.structureMesh(0,0,0,0,2,0)
         if (self.buildingType == "elongated"):
             cmds.select(mesh["selectTopFace"])
             self.elongated(3,1.5, True)
@@ -125,8 +132,9 @@ class Element:
             #cmds.select(mesh[0]+'.f['+str(lastFace)+']', tgl=True)
         
         else:
-            cmds.select(mesh["selectTopFace"])
-            cmds.polyBevel()
+            print(mesh)
+            #cmds.select(mesh["selectTopFace"])
+            #cmds.polyBevel()
         
         """ A activer"""
         cmds.select(cl=True)
@@ -150,7 +158,7 @@ if __name__ == '__main__':
     """---Build---"""
     init = Element(5,3,3,"basic")
     #init.building(5)
-    init.structureMesh(0,0,0,0,2,0)
+    init.structureMesh(0,0,0,0,0,0)
     #init.Test()
 
     
