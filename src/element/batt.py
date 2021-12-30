@@ -112,42 +112,37 @@ class Element:
         createGroupe = cmds.group( em=True, name='building_'+str(self.buildingType) )
         listforGroup = []
         for i in range(nbEtage):
-            self.floor()
+            self.floor(i, nbEtage)
+            print(i, nbEtage)
             cmds.move(0,(i)*(self.hauteur+self.translateZ),0, moveXZ=False)
-    
-   
-            
-    
+
     def elongated(self, offset, keepFacesTogether):
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=1, off=offset, kft=keepFacesTogether)
     
-    def floor(self):
+    def floor(self, nbrFloor, lastFloor):
         mesh = self.structureMesh()
-        print(mesh)
-        if (self.buildingType == "elongated"):
-            cmds.select(mesh["selectTopFace"])
-            print("start elongated")
+        if(nbrFloor != 0):
+            if (self.buildingType == "elongated"):
+                cmds.select(mesh["selectTopFace"])
+                print("start elongated")
+                
+                self.elongated(1.5, True)
+                self.elongated(0, True)
+                #cmds.polyBevel()
+                #cmds.select(mesh[0]+'.f['+str(lastFace)+']', tgl=True)
             
-            self.elongated(1.5, True)
-            self.elongated(0, True)
-            #cmds.polyBevel()
-            #cmds.select(mesh[0]+'.f['+str(lastFace)+']', tgl=True)
-        
+            else:
+                cmds.select(mesh["selectTopFace"])
+                cmds.polyBevel()
+                
+        elif(nbrFloor==lastFloor):
+            print("last floor")
         else:
-            print(mesh)
-            cmds.select(mesh["selectTopFace"])
-            cmds.polyBevel()
+            print("firstFloor")
         
         """ A activer"""
         cmds.select(cl=True)
         cmds.select(self.mesh["meshName"])
-        
-    
-    
-    def Test(self):
-        test= self.structureMesh(1,1,1)
-        print(test)
-    
 
 if __name__ == '__main__':
     
@@ -158,8 +153,9 @@ if __name__ == '__main__':
     ui.make_i_SliderGrp()
     """
     """---Build---"""
-    init = Element("generativeBat",5,3,8,"basic", 0)
-    #init.structureMesh([0,0,0],[0,0,0],0,0)
+    init = Element("generativeBat",5,3,8,"basic")
+    #init.structureMesh()
+    init.structureMesh([0,0,0],[0,0,0],0,0)
     init.building(3)
     #init.Test()
 
