@@ -10,19 +10,16 @@ def importMayaScript(nameFolder):
 importMayaScript("env")      
 importMayaScript("element")      
 
-from water import water
 from Terrain_hexagon_gen import terrain
+from importMesh import ManageImport , openTextureFile
 
 """-----------Ne pas toucher les imports ----------------"""
 
 cmds.file(f=True, new=True)
 
 
-terrain()
-water()
-
-
 if __name__ == '__main__':
-    terrain()
-    water()
-
+    bilelBat = ManageImport("batiment_CyberPunk_uv.mb")
+    bilelBat.openMayaFile()
+    bilelBat.ManageObj([2,0,0],[1,1,1], [0,0,0])
+    bilelBat.deleteReference()

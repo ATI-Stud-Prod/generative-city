@@ -38,15 +38,20 @@ class ManageImport:
         cmds.rotate(str(_rotation[0])+"deg",str(_rotation[1])+"deg",str(_rotation[2])+"deg")
         return(obj)
         
+
+def openTextureFile(nameFile):
+    filePath = str(setMeshDir) + str(nameFile)
+    return(filePath)
+
     
 if __name__ == '__main__':
     
-    
+    """
     bilelBat = ManageImport("batiment_CyberPunk_uv.mb")
     bilelBat.openMayaFile()
     
     bilelBat.ManageObj([2,0,0],[1,1,1], [0,0,0])
-    
+    """
     """ Si vous voulez changer après coup la reference vous pouvez spécifier un autre fichier """
     # bilelBat.openMayaFile("batiment_CyberPunk_avant_combine.mb")
     """ Si vous voulez delete """
@@ -54,11 +59,7 @@ if __name__ == '__main__':
 
 """------------- Texture part ---------------"""
 
-def openTextureFile(nameFile):
-    filePath = str(setMeshDir) + str(nameFile)
-    return(filePath)
-
-
+"""
 #deleteMayaFile("batiment_CyberPunk_uv")
 
 b = cmds.shadingNode('lambert', asShader=True)
@@ -78,3 +79,4 @@ cmds.setAttr( 'file'+ '1' +'.fileTextureName', openTextureFile("texture_texte_at
 
 Objet = cmds.polyCube(name = "objet"+str(1))
 cmds.sets(edit=True, forceElement = 'lambert1SG')
+"""
