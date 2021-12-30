@@ -74,7 +74,6 @@ class Element:
             cmds.move(Pos[0], Pos[1]-self.hauteur*.5, Pos[2])
             cmds.delete(mesh[0]+'.f[0:'+str((self.sub*2)-1)+']')
         
-
         cmds.rotate(''+str(Rotation[0])+'deg',''+str(Rotation[1])+'deg',''+str(Rotation[2])+'deg')
         cmds.polySubdivideFacet(dv=wallSubX)
         cmds.select(mesh[0]+'.f[0:*]')
@@ -87,13 +86,7 @@ class Element:
         lastVertex = MeshValue['vertex'] -1
         lastEdge = MeshValue['edge'] -1
         lastFace = MeshValue['face'] -1
-        """
-        print(str(lastFace)+" face -1")
-        print(str(lastVertex)+" vertex -1")
-        print(self.selectSideFace(wallSubX))
-        
-        """
-        """----  Param selection -----"""
+    
         if (self.sub == 4 ):
             selectTopFace = mesh[0]+'.f['+str(0)+':'+str(self.sub**wallSubX -1 )+']'
         else :    
@@ -101,7 +94,7 @@ class Element:
         
         selectSideFace = mesh[0]+'.f['+str(((lastFace-self.selectSideFace(wallSubX))+1))+':'+str(lastFace)+']'
             
-        cmds.select(selectTopFace)
+        cmds.select(selectSideFace)
         """----  Param selection -----"""
         cmds.select(cl=True)
         
@@ -109,32 +102,31 @@ class Element:
         return(self.mesh)
 
     def building(self, nbEtage):
-        createGroupe = cmds.group( em=True, name='building_'+str(self.buildingType) )
         listforGroup = []
+        createGroupe = cmds.group( em=True, name='building_'+str(self.buildingType) )
         for i in range(nbEtage):
-            self.floor(i, nbEtage)
-            print(i, nbEtage)
+            cmds.parent( self.floor(i, nbEtage),str(createGroupe) )
             cmds.move(0,(i)*(self.hauteur+self.translateZ),0, moveXZ=False)
-
+        cmds.move(2, 0, 2, str(createGroupe) + '.scalePivot', objectName + '.rotatePivot', absolute=True);
+        
     def elongated(self, offset, keepFacesTogether):
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=1, off=offset, kft=keepFacesTogether)
     
     def floor(self, nbrFloor, lastFloor):
         mesh = self.structureMesh()
-        if(nbrFloor != 0):
-            if (self.buildingType == "elongated"):
+        
+        if (self.buildingType == "elongated"):
                 cmds.select(mesh["selectTopFace"])
                 print("start elongated")
                 
                 self.elongated(1.5, True)
-                self.elongated(0, True)
-                #cmds.polyBevel()
-                #cmds.select(mesh[0]+'.f['+str(lastFace)+']', tgl=True)
             
-            else:
+        else:
                 cmds.select(mesh["selectTopFace"])
                 cmds.polyBevel()
                 
+        if(nbrFloor != 0):
+            print("beetwenn floor")
         elif(nbrFloor==lastFloor):
             print("last floor")
         else:
@@ -143,20 +135,12 @@ class Element:
         """ A activer"""
         cmds.select(cl=True)
         cmds.select(self.mesh["meshName"])
+        return(str(mesh["meshName"]))
 
 if __name__ == '__main__':
-    
-    """---INTERFACE---"""
-    """ 
-    ui = UI('interface',300, 200)
-    ui.make_btn(label='buton')
-    ui.make_i_SliderGrp()
-    """
-    """---Build---"""
-    init = Element("generativeBat",5,3,8,"basic")
+    init = Element("generativeBat",5,3,4,"basic")
     #init.structureMesh()
-    init.structureMesh([0,0,0],[0,0,0],0,0)
+    #init.structureMesh([0,0,0],[0,0,0],0,0)
     init.building(3)
-    #init.Test()
 
     
