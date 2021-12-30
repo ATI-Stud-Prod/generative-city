@@ -45,7 +45,13 @@ class Element:
         self.translateZ = translateZ 
         self.sub = sub
         self.typeTexture = typeTexture
-
+    
+    def selectSideFace(self, wallSubX):
+            nbrFace = self.sub
+            if (wallSubX != 0):
+                nbrFace = (self.sub)*4**(wallSubX-1)
+                
+            return(nbrFace)
 
     def structureMesh(self,PosX, PosY, PosZ, Rotation=0 , wallSubX=0, wallSubY=0 ):
         mesh = cmds.polyCylinder(name="baseMesh", sx=self.sub,sy=1, sz=1, h=self.hauteur,radius=self.largeur)
@@ -81,14 +87,17 @@ class Element:
         
         print(str(lastFace)+" face -1")
         print(str(lastVertex)+" vertex -1")
+        
+        print(self.selectSideFace(wallSubX))
+        
         """----  Param selection -----"""
-        selectTopFace = mesh[0]+'.f['+str(0)+':'+str((self.sub) -1 )+']'
-        selectSideFace = mesh[0]+'.f['+str(lastFace-self.sub+1)+':'+str(lastFace)+']'
+        selectTopFace = mesh[0]+'.f['+str(0)+':'+str(((self.sub*wallSubX)**2) -1 )+']'
+        selectSideFace = mesh[0]+'.f['+str((lastFace-self.selectSideFace(wallSubX)+1))+':'+str(lastFace)+']'
         selectDownFace = mesh[0]+'.f['+str(self.sub)+':'+str(lastFace-self.sub)+']'
         """----  Param selection -----"""
 
         cmds.select(cl=True)
-        cmds.select(selectSideFace)
+        cmds.select(selectSideFace )
         DataMesh = {"meshName":mesh[0], "selectTopFace" :selectTopFace,"selectSideFace" : selectSideFace, "selectDownFace": selectDownFace}
         
         return(DataMesh)
@@ -99,6 +108,9 @@ class Element:
         for i in range(nbEtage):
             self.floor()
             cmds.move(0,(i)*(self.hauteur+self.translateZ),0, moveXZ=False)
+    
+   
+            
     
     def elongated(self, division, offset, keepFacesTogether):
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=division, off=offset, kft=keepFacesTogether)
@@ -138,7 +150,7 @@ if __name__ == '__main__':
     """---Build---"""
     init = Element(5,3,3,"basic")
     #init.building(5)
-    init.structureMesh(0,0,0,0,2,4)
+    init.structureMesh(0,0,0,0,2,0)
     #init.Test()
 
     
