@@ -107,7 +107,6 @@ class Element:
         for i in range(nbEtage):
             cmds.parent( self.floor(i, nbEtage),str(createGroupe) )
             cmds.move(0,(i)*(self.hauteur+self.translateZ),0, moveXZ=False)
-        cmds.move(2, 0, 2, str(createGroupe) + '.scalePivot', objectName + '.rotatePivot', absolute=True);
         
     def elongated(self, offset, keepFacesTogether):
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=1, off=offset, kft=keepFacesTogether)
@@ -137,10 +136,11 @@ class Element:
         cmds.select(self.mesh["meshName"])
         return(str(mesh["meshName"]))
 
+"""
 if __name__ == '__main__':
     init = Element("generativeBat",5,3,4,"basic")
     #init.structureMesh()
     #init.structureMesh([0,0,0],[0,0,0],0,0)
     init.building(3)
-
+"""
     
