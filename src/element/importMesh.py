@@ -1,5 +1,4 @@
-import maya.cmds as cmds
-
+# -*- coding: <utf-8> -*-
 cmds.file(f=True, new=True)
 
 

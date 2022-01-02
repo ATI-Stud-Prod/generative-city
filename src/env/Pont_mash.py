@@ -1,6 +1,3 @@
-import maya.cmds as cmds
-import MASH.api as mapi
-
 #Curve 
 cmds.curve( p=[(0, 2, 0), (3, 1, 6), (5, 3, 7), (9, 4, 9), (12, 5, 2)], k=[0,0,0,1,2,2,2] )
 

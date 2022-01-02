@@ -1,5 +1,5 @@
 import maya.cmds as cmds
-import random
+
 
 #variable de terrain
 arrayZ = 20
@@ -82,7 +82,7 @@ def deleteGrilles():
     cmds.delete(ls)
 
 #position des grilles
-placementDeGrille(['terreBitume','terreBitume2','terreBitume3'])
+#placementDeGrille(['terreBitume','terreBitume2','terreBitume3'])
 
 #positionnement des objets sur les faces
 #objVerticePosition(['bat1','bat2','bat3','bat4','bat5','bat6','bat7'])

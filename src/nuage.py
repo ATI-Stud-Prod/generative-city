@@ -3,9 +3,7 @@ import random as random
 #valeur changer et mettre dans une fenetre
 arrayZ = 20 #nombre sur l'axe des z
 arrayX = 20 #nombre sur l'axe des x
-
         
-
 def nuage():
     
     blanc = cmds.shadingNode('blinn', asShader=True)

@@ -1,13 +1,4 @@
-import maya.cmds as cmds
-import random as random
-
-#valeur changer et mettre dans une fenetre
-arrayZ = 20 #nombre sur l'axe des z
-arrayX = 20 #nombre sur l'axe des x
-min = 0 #minumim du displacement
-max = 1 #maximum du displacement
-
-def terrain():
+def terrain(arrayZ,arrayX, min, max):
     #creation des lignes 
     for x in range (0,arrayX,1) :
         cmds.select( all=True )
@@ -78,5 +69,3 @@ bitume1 = createShader("blinn", [0.19,0.19,0.19], "terreBitume")
 bitume2 = createShader("blinn", [0.1,0.1,0.1], "terreBitume2")
 bitume3 = createShader("blinn", [0.16,0.16,0.16], "terreBitume3")
 blanc = createShader("blinn", [1,1,1], "blanc")
-
-terrain()
