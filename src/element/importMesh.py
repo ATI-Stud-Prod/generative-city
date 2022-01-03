@@ -1,5 +1,5 @@
 # -*- coding: <utf-8> -*-
-cmds.file(f=True, new=True)
+import maya.cmds as cmds
 
 
 myScriptDir = cmds.internalVar(userScriptDir=True)

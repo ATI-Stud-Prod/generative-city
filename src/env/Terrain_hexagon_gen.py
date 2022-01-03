@@ -1,3 +1,6 @@
+import maya.cmds as cmds
+import random as random
+
 def terrain(arrayZ,arrayX, min, max):
     #creation des lignes 
     for x in range (0,arrayX,1) :

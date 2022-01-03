@@ -36,14 +36,14 @@ def selectEdgeArround(theFace):
 
 class Element:
     
-    def __init__(self,mesh, hauteur, largeur,sub, buildingType="basic",  translateZ=0, typeTexture='null'):
+    def __init__(self,mesh, hauteur, largeur,sub,pos=[0,0,0], buildingType="basic",  translateZ=0):
         self.mesh = mesh
         self.hauteur = hauteur
         self.largeur = largeur
-        self.buildingType = buildingType
-        self.translateZ = translateZ 
         self.sub = sub
-        self.typeTexture = typeTexture
+        self.pos = pos
+        self.buildingType = buildingType
+        self.translateZ = translateZ
     
     def selectSideFace(self, wallSubX):
         nbrFace = self.sub
@@ -58,7 +58,7 @@ class Element:
         return(nbrFace)
 
     def structureMesh(self,Pos=[0,0,0], Rotation=[0,0,0] , wallSubX=0, wallSubY=0 ):
-                 
+        print(Pos)
         mesh = cmds.polyCylinder(name="generativeMesh", sx=self.sub,sy=1, sz=1, h=self.hauteur,radius=self.largeur)
         if (self.sub == 4 ):
             cmds.delete(mesh[0]+'.f[8:10]')
@@ -66,13 +66,19 @@ class Element:
             cmds.polyCloseBorder(ch=True)
             cmds.delete(mesh[0]+'.f[0:'+str((self.sub*2)-1)+']')
             cmds.select(mesh[0])
-            cmds.move(0,-self.hauteur*.5,0, moveXZ=False)
+            #cmds.move(0,-self.hauteur*.5,0, moveXZ=False)
             cmds.rotate(0,'45deg',0)
             cmds.delete(mesh[0], constructionHistory = True)
             cmds.makeIdentity(apply=True, t=1, r=1, s=1, n=0)
+            cmds.move(Pos[0], Pos[1], Pos[2])
+
         else:
-            cmds.move(Pos[0], Pos[1]-self.hauteur*.5, Pos[2])
+            cmds.move(Pos[0], Pos[1], Pos[2])
             cmds.delete(mesh[0]+'.f[0:'+str((self.sub*2)-1)+']')
+            cmds.delete(mesh[0], constructionHistory = True)
+            cmds.makeIdentity(apply=True, t=1, r=1, s=1, n=0)
+
+
         
         cmds.rotate(''+str(Rotation[0])+'deg',''+str(Rotation[1])+'deg',''+str(Rotation[2])+'deg')
         cmds.polySubdivideFacet(dv=wallSubX)
@@ -106,14 +112,14 @@ class Element:
         createGroupe = cmds.group( em=True, name='building_'+str(self.buildingType) )
         for i in range(nbEtage):
             cmds.parent( self.floor(i, nbEtage),str(createGroupe) )
-            cmds.move(0,(i)*(self.hauteur+self.translateZ),0, moveXZ=False)
+            
+            cmds.move(self.pos[0],(self.pos[1]-(self.hauteur*.5+self.translateZ))+(i*(self.hauteur+self.translateZ)),self.pos[2])
         
     def elongated(self, offset, keepFacesTogether):
         cmds.polyExtrudeFacet(ltz=self.translateZ, d=1, off=offset, kft=keepFacesTogether)
     
     def floor(self, nbrFloor, lastFloor):
-        mesh = self.structureMesh()
-        
+        mesh = self.structureMesh([self.pos[0],self.pos[1],self.pos[2]])
         if (self.buildingType == "elongated"):
                 cmds.select(mesh["selectTopFace"])
                 print("start elongated")
@@ -136,11 +142,9 @@ class Element:
         cmds.select(self.mesh["meshName"])
         return(str(mesh["meshName"]))
 
-"""
 if __name__ == '__main__':
-    init = Element("generativeBat",5,3,4,"basic")
+    init = Element("generativeBat",1,3,4, [8,0,0],"basic")
     #init.structureMesh()
-    #init.structureMesh([0,0,0],[0,0,0],0,0)
-    init.building(3)
-"""
+    #init.structureMesh([10,0,0],[0,0,0],0,0)
+    init.building(8)
     
