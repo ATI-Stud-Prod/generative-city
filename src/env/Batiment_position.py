@@ -1,5 +1,5 @@
 import maya.cmds as cmds
-
+import random
 
 #variable de terrain
 arrayZ = 20

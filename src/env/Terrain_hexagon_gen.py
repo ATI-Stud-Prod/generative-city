@@ -1,5 +1,5 @@
 import maya.cmds as cmds
-import random as random
+import random 
 
 
 
@@ -14,9 +14,9 @@ def terrain(arrayZ,arrayX, min, max):
             cmds.move(0,0,z*2)
 
     #creation du displacement
-    rpas = random.randint(1,3)
+    rpas = random.randint(1,5)
     for dis in range(0,arrayZ*arrayX,rpas):  
-        rpas = random.randint(1,3) 
+        rpas = random.randint(1,5) 
         rpas2 = random.randint(1,2)
         for a in range (0,2,rpas2) :
             fY = random.randint(min,max)
