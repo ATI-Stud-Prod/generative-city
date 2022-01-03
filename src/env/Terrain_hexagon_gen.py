@@ -1,6 +1,8 @@
 import maya.cmds as cmds
 import random as random
 
+
+
 def terrain(arrayZ,arrayX, min, max):
     #creation des lignes 
     for x in range (0,arrayX,1) :
@@ -14,7 +16,7 @@ def terrain(arrayZ,arrayX, min, max):
     #creation du displacement
     rpas = random.randint(1,3)
     for dis in range(0,arrayZ*arrayX,rpas):  
-        rpas = random.randint(1,5) 
+        rpas = random.randint(1,3) 
         rpas2 = random.randint(1,2)
         for a in range (0,2,rpas2) :
             fY = random.randint(min,max)
@@ -62,13 +64,3 @@ def shaderAssign(name):
 
 def randomColor(liste_de_shader):
     return random.sample(liste_de_shader, 1)
-
-vert1 = createShader("blinn", [0,0.6,0], "bitumeVert")
-vert2 = createShader("blinn", [0,0.6,0.2], "bitumeVertType2")
-bleu1 = createShader("blinn", [0,0.3,0.6], "eauBleu")
-bleu2 = createShader("blinn", [0,0.4,0.6], "eauBleu2")
-bleu3 = createShader("blinn", [0,0.5,0.6], "eauBleu3")
-bitume1 = createShader("blinn", [0.19,0.19,0.19], "terreBitume")
-bitume2 = createShader("blinn", [0.1,0.1,0.1], "terreBitume2")
-bitume3 = createShader("blinn", [0.16,0.16,0.16], "terreBitume3")
-blanc = createShader("blinn", [1,1,1], "blanc")

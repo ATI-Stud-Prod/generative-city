@@ -1,7 +1,7 @@
 import maya.cmds as cmds
 import sys 
 
-cmds.file(f=True, new=True)
+#cmds.file(f=True, new=True)
 
 def importMayaScript(nameFolder):
 
@@ -141,10 +141,10 @@ class Element:
         cmds.select(cl=True)
         cmds.select(self.mesh["meshName"])
         return(str(mesh["meshName"]))
-
+"""
 if __name__ == '__main__':
     init = Element("generativeBat",1,3,4, [8,0,0],"basic")
     #init.structureMesh()
     #init.structureMesh([10,0,0],[0,0,0],0,0)
     init.building(8)
-    
+"""    
