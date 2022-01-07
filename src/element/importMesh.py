@@ -24,7 +24,7 @@ class ManageImport:
         nameFile = cmds.referenceQuery( self.path,  nodes=True  ) # bad
         self.SelectedObj = nameFile[0]
         self.referenceName = cmds.referenceQuery(self.path, filename = True)
-
+        return(self.SelectedObj)
         
     def deleteReference(self, nameReference=""):
         cmds.file( self.path, removeReference=True)
@@ -45,12 +45,12 @@ def openTextureFile(nameFile):
     
 if __name__ == '__main__':
     
-    """
+    
     bilelBat = ManageImport("batiment_CyberPunk_uv.mb")
-    bilelBat.openMayaFile()
+    print(bilelBat.openMayaFile())
     
     bilelBat.ManageObj([2,0,0],[1,1,1], [0,0,0])
-    """
+    
     """ Si vous voulez changer après coup la reference vous pouvez spécifier un autre fichier """
     # bilelBat.openMayaFile("batiment_CyberPunk_avant_combine.mb")
     """ Si vous voulez delete """

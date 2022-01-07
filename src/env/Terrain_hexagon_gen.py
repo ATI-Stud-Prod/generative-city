@@ -4,7 +4,7 @@ import random
 
 
 def terrain(arrayZ,arrayX, min, max):
-    #creation des lignes 
+    #creation des lignes
     for x in range (0,arrayX,1) :
         cmds.select( all=True )
         cmds.move(3.45,0,0, relative=True)
