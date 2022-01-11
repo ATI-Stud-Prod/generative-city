@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 import random as random
-
+import math
 
 colorScheme = {
     'custom1': [128,255,0],

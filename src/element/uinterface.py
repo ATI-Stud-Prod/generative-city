@@ -55,6 +55,3 @@ class UI:
 
     def make_separator(self, ht, st):
         cmds.separator(height = ht, style=st)
-
-ui = UI('interface',300, 200)
-ui.make_btn(label='buton')
